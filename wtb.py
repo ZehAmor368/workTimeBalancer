@@ -5,10 +5,15 @@ from YamlHandler import YamlHandler
 from Timer import Timer
 from Timesheet import Timesheet
 import sys
+import os
 
+currentDir = os.getcwd()
+
+workingDir = os.chdir('/home/mpoetzsch/Documents/skripte/python/workTimeBalancer')
 
 if len(sys.argv) < 2:
     print("Please enter an argument: start, stop, show")
+    os.chdir(currentDir)
     sys.exit()
 
 cli_arguments = sys.argv[1:]
@@ -21,6 +26,7 @@ if cli_arguments[0] not in valid_arguments:
     msg += " stop\t-\tends WorkTimeBalancer for this day\n"
     msg += " show\t-\toutputs WorkTimeBalancers Timesheet"
     print(msg)
+    os.chdir(currentDir)
     sys.exit()
 
 ts = Timesheet('Timesheet.yml')
@@ -31,3 +37,5 @@ elif cli_arguments[0] == 'stop':
     ts.endWork()
 elif cli_arguments[0] == 'show':
     print(ts)
+
+os.chdir(currentDir)
